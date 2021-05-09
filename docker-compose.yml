@@ -1,31 +1,36 @@
 version: "3"
 
 # titles are names of the containers after initialisation (check with docker ps [-a] whether they are running)
-# docker comands: start, stop, run, build, pull, push, rm, rmi, images, ps, inspect, cp
-# ports (-p) <external-port>:<internal-port> (mapping of ports)
+# docker comands: start, stop, run, build, pull, push, rm, rmi, images, ps, inspect, cp, logs
+# ports (-p) <external-port-on-host>:<internal-port-in-container> (mapping of ports)
 # volumes (-v) <volume-on-host>:<volume-in-container> (mounts volume-on-host to container)
 # docker-compose up -d for making containers detached (other commands: docker-compose run, stop, down (--volumes)
 # Other options (in .yml): links (link to <name-other-container>:<variable-name-in-other-container> or if equal only on tag) (--link)
 services:
         php:
-                # build: ./docker-php
-                image: php:7.4-fpm
-                ports: 
-                  - "5000:80"
+                build: ./docker-php
+                # image: php:7.4-fpm
+                volumes:
+                  - ./php-files:/var/www/include
 
         mysql:
                 # build: ./docker-mysql
                 image: mysql
                 ports:
-                  - "3306:3306"
+                  - "5000:3306"
                 volumes:
                   - ./data:/var/lib/mysql
+                environment:
+                # Datenbankpasswort vergeben:
+                  - MYSQL_ROOT_PASSWORD=data
 
 
         nginx:
                 build: ./docker-nginx
                 ports: 
-                  - "8000:80"
+                  - "8080:80"
+                links:
+                  - php
                 volumes: 
                   # original file volume on nginx: /usr/share/nginx/html but in here altered in config files
                   - ./php-files:/var/www/include
