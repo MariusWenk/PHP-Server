@@ -38,8 +38,5 @@
             });
         </script> 
 
-        <?PHP
-            
-	?>
     </body>
   </html>

@@ -12,23 +12,30 @@ services:
                 # image: php:7.4-fpm
                 volumes:
                   - ./php-files:/var/www/include
+                networks:
+                  - code-network
+                links:
+                  - mysql:database
 
         mysql:
                 # build: ./docker-mysql
                 image: mysql
-                ports:
-                  - "5000:3306"
+                # No need for direct access (use phpmyadmin or php), therfor commented out:
+                # ports:
+                #  - "5000:3306"
                 volumes:
                   - ./data:/var/lib/mysql
                 environment:
                 # Datenbankpasswort vergeben:
                   - MYSQL_ROOT_PASSWORD=data
-
+                networks:
+                  - code-network
 
         nginx:
                 build: ./docker-nginx
                 ports: 
                   - "8080:80"
+                  - "8081:443"
                 links:
                   - php
                 volumes: 
@@ -37,3 +44,23 @@ services:
                   # Done in Dockerfile:
                   #  - ./docker-nginx/nginx.conf:/etc/nginx
                   #  - ./docker-nginx/default.conf:/etc/nginx/conf.d
+                networks:
+                  - code-network
+
+        phpmyadmin:
+                image: phpmyadmin
+                ports:
+                  - "8082:80"
+                environment:
+                  - PMA_HOST=mysql
+                  - PMA_PORT=3306 
+                links:
+                  - mysql
+                networks:
+                  - code-network
+
+networks:
+        code-network:
+                driver: bridge
+
+# volumes:
