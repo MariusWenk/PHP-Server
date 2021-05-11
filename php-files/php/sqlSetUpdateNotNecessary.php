@@ -1,10 +1,9 @@
 <?php 
-include "sqlConnect.php";
+require_once 'config.inc.php';
 
 $playerID = $_GET['playerID'];
 $roomID = $_GET['roomID'];
 
-mysqli_query($connect, "UPDATE players SET UpdateNecessary=false WHERE RoomID=$roomID AND PlayerID=$playerID");
+db_query("UPDATE players SET UpdateNecessary=false WHERE RoomID=$roomID AND PlayerID=$playerID");
 
-$connect -> close();
 ?>

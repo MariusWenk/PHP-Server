@@ -1,13 +1,12 @@
 <?php   
-include "sqlConnect.php";
+require_once 'config.inc.php';
 
 $playerID = $_GET['playerID'];
 $roomID = $_GET['roomID'];
 $spielerMenu = $_GET['spielerMenu'];
 $linkMenu = $_GET['linkMenu'];
 
-mysqli_query($connect, "UPDATE players SET SpielerMenu=$spielerMenu WHERE PlayerID=$playerID AND RoomID=$roomID");
-mysqli_query($connect, "UPDATE players SET LinkMenu=$linkMenu WHERE PlayerID=$playerID AND RoomID=$roomID");
+db_query_prepared( "UPDATE players SET SpielerMenu=:spielerMenu WHERE PlayerID=:playerID AND RoomID=:roomID", array('spielerMenu'=>$spielerMenu, 'playerID'=>$playerID, 'roomID'=>$roomID));
+db_query_prepared( "UPDATE players SET LinkMenu=:linkMenu WHERE PlayerID=:playerID AND RoomID=:roomID", array('linkMenu'=>$linkMenu, 'playerID'=>$playerID, 'roomID'=>$roomID));
 
-$connect -> close();
 ?>

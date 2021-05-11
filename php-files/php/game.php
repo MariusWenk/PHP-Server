@@ -25,9 +25,7 @@
 
 
     <?php
-        include "sqlConnect.php";
-
-        include "gameVariables.php";
+        require_once 'config.inc.php';
     ?>
     
     <html lang="de">
@@ -36,9 +34,9 @@
         <head>
             <Title>Tempel des Schreckens</Title>
 
-            <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+            <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 
-            <link rel="stylesheet" type="text/CSS" href="main.css">
+            <link rel="stylesheet" type="text/CSS" href="css/main.css">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         </head>
 
@@ -93,7 +91,7 @@
 
             <section id="statistik">
                 <h3 class="statistiktitel">Gefundene Karten:</h3>
-                <img src="Statistik.PNG" width="500px" height="10%">
+                <img src="images/Statistik.PNG" width="500px" height="10%">
                 <h3 id="statistikZahlen" class="statistikzahlen"> <?php echo $emptyDisc."/".$emptyGen;?>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <?php echo $treasureDisc."/".$treasureGen;?> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<?php echo $trapDisc."/".$trapGen;?></h3>
             </section>
 
@@ -101,7 +99,7 @@
 
             <section id="ownCards">
                 <h3 class="statistiktitel">Eigene Karten:</h3>
-                <img src="Statistik.PNG" width="500px" height="10%">
+                <img src="images/Statistik.PNG" width="500px" height="10%">
                 <h3 id="eigeneKartenZahlen" class="statistikzahlen"> <?php echo $empty[$playerID];?>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <?php echo $treasure[$playerID];?> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<?php echo $trap[$playerID];?></h3>
             </section>
 

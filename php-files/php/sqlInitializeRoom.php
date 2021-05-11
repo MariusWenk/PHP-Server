@@ -1,7 +1,7 @@
 <?php
-include "sqlConnect.php";
+require_once 'config.inc.php';
 
-$newID = mysqli_fetch_array(mysqli_query($connect,"SELECT RoomID FROM rooms ORDER BY RoomID DESC LIMIT 1"))[0] + 1;
+$newID = db_fetch(db_query("SELECT RoomID FROM rooms ORDER BY RoomID DESC LIMIT 1")) + 1;
 
 $values = $_POST;
 $name = $values['nickname'];
@@ -13,10 +13,8 @@ foreach($values as $key => $value){
     }
 }
 
-mysqli_query($connect,"INSERT INTO rooms VALUES ($newID, '$language',false)");
-mysqli_query($connect,"INSERT INTO players VALUES ($newID, 0, '$name', 'Host', 'NR',false,true,true,true,0,0,0,false)");
-
-$connect -> close();
+db_query("INSERT INTO rooms VALUES ($newID, '$language',false)");
+db_query("INSERT INTO players VALUES ($newID, 0, '$name', 'Host', 'NR',false,true,true,true,0,0,0,false)");
 
 header("Location: game.php?roomID=".$newID."&playerID=0");
 

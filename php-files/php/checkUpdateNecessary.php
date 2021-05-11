@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
     <?php
-        include "sqlConnect.php";
+        require_once 'config.inc.php';
 
         $roomID = $_GET['roomID'];
         $playerID = $_GET['playerID'];
 
-        $updateNecessary = mysqli_fetch_array(mysqli_query($connect,"SELECT UpdateNecessary FROM players WHERE RoomID=$roomID AND PlayerID=$playerID"))[0];
+        $updateNecessary = db_fetch(db_query("SELECT UpdateNecessary FROM players WHERE RoomID=$roomID AND PlayerID=$playerID"));
     ?>
     
     <html lang="de">

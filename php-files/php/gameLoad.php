@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 
     <?php
-        include "sqlConnect.php";
-
-        include "gameVariables.php";
+        require_once 'config.inc.php';
     ?>
     
     <html lang="de">
@@ -12,9 +10,9 @@
         <head>
             <Title>Tempel des Schreckens</Title>
 
-            <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+            <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 
-            <link rel="stylesheet" type="text/CSS" href="main.css">
+            <link rel="stylesheet" type="text/CSS" href="css/main.css">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         </head>
 

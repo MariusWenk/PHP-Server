@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
     <?php
+        require_once 'config.inc.php';
+
         $roomID = $_GET['roomID'];
         $textID = $_GET['textID'];
     ?>
@@ -11,9 +13,9 @@
     <head>
       <Title>Tempel des Schreckens</Title>
 
-      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+      <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 
-      <link rel="stylesheet" type="text/CSS" href="main.css">
+      <link rel="stylesheet" type="text/CSS" href="css/main.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     </head>
 

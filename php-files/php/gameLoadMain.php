@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 
     <?php
-        include "sqlConnect.php";
-
-        include "gameVariables.php";
+        require_once 'config.inc.php';
     ?>
     
     <html lang="de">
@@ -12,9 +10,9 @@
         <head>
             <Title>Tempel des Schreckens</Title>
 
-            <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+            <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
 
-            <link rel="stylesheet" type="text/CSS" href="main.css">
+            <link rel="stylesheet" type="text/CSS" href="css/main.css">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         </head>
 
@@ -64,7 +62,7 @@
                                 }else if($kartenGesamt[$spielerCardsSelectedIndex] == 1){
                                     $shift = "340%%";
                                 }
-                                echo "<img class=\"button\" id=\"karte".$i."\" src=\"Back.PNG\" width=\"200%\" height=\"10%\" style=\"transform:rotate(90deg); margin-left:+".$shift.";\">";                                }
+                                echo "<img class=\"button\" id=\"karte".$i."\" src=\"images/Back.PNG\" width=\"200%\" height=\"10%\" style=\"transform:rotate(90deg); margin-left:+".$shift.";\">";                                }
                             echo "</p></section>";
                         $i++;
                     }
@@ -91,11 +89,11 @@
                                 }
                                 if($karteSelectedPosition == $i){
                                     if($karteSelected == "Leer"){
-                                        echo "<img src=\"Empty.PNG\" width=\"125%\" height=\"10%\" style=\"margin-top: -42%; padding-left:+35%; margin-left:+".$shift.";\">";
+                                        echo "<img src=\"images/Empty.PNG\" width=\"125%\" height=\"10%\" style=\"margin-top: -42%; padding-left:+35%; margin-left:+".$shift.";\">";
                                     }else if($karteSelected == "Gold"){
-                                        echo "<img src=\"Treasure.PNG\" width=\"125%\" height=\"10%\" style=\"margin-top: -42%; padding-left:+35%; margin-left:+".$shift.";\">";
+                                        echo "<img src=\"images/Treasure.PNG\" width=\"125%\" height=\"10%\" style=\"margin-top: -42%; padding-left:+35%; margin-left:+".$shift.";\">";
                                     }else if($karteSelected == "Feuerfalle"){
-                                        echo "<img src=\"Trap.PNG\" width=\"130%\" height=\"10%\" style=\"margin-top: -42%; padding-left:+35%; margin-left:+".$shift.";\">";
+                                        echo "<img src=\"images/Trap.PNG\" width=\"130%\" height=\"10%\" style=\"margin-top: -42%; padding-left:+35%; margin-left:+".$shift.";\">";
                                     }
                                 }else{
                                     echo "<img src=\"Back.PNG\" width=\"200%\" height=\"10%\" style=\"transform:rotate(90deg); margin-left:+".$shift.";\">";

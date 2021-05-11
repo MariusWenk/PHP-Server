@@ -1,16 +1,16 @@
 <?php
-include "sqlConnect.php";
+require_once 'config.inc.php';
 
 $roomID = $_GET['roomID'];
 $playerID = $_GET['playerID'];
 $newName = $_GET['newName'];
 
-$spielerAnzahl = mysqli_fetch_array(mysqli_query($connect,"SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
+$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1")) + 1;
 
 $nameVergeben = false;
 $i=0;
 while($i < $spielerAnzahl){
-    $nameOthers = mysqli_fetch_array(mysqli_query($connect,"SELECT Name FROM players WHERE RoomID=$roomID AND PlayerID=$i"))[0];
+    $nameOthers = db_fetch(db_query("SELECT Name FROM players WHERE RoomID=$roomID AND PlayerID=$i");
     if($nameOthers == $newName){
         $nameVergeben = true;
     }
@@ -18,18 +18,16 @@ while($i < $spielerAnzahl){
 }
 
 if(!$nameVergeben){
-    mysqli_query($connect,"UPDATE players SET Name='$newName' WHERE PlayerID=$playerID AND RoomID='$roomID'");
+    db_query("UPDATE players SET Name='$newName' WHERE PlayerID=$playerID AND RoomID='$roomID'");
 
-    $spielerAnzahl = mysqli_fetch_array(mysqli_query($connect,"SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
+    $spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1")) + 1;
     $i=0;
     while($i<$spielerAnzahl){
         if($i != $playerID){
-            mysqli_query($connect, "UPDATE players SET UpdateNecessary=true WHERE RoomID=$roomID AND PlayerID=$playerID");
+            db_query("UPDATE players SET UpdateNecessary=true WHERE RoomID=$roomID AND PlayerID=$playerID");
         }
         $i++;
     }
 }
-
-$connect -> close();
 
 ?>
