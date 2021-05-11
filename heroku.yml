@@ -1,0 +1,12 @@
+setup:
+   addons:
+     - plan: heroku-postgresql
+       as: database
+build:
+   docker:
+       php: docker-php/Dockerfile
+       phpmyadmin: docker-phpmyadmin/Dockerfile
+run:
+   php:
+       command:
+          - php index.php

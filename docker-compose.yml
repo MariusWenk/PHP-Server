@@ -4,12 +4,18 @@ version: "3"
 # docker comands: start, stop, run, build, pull, push, tag, rm, rmi, images, ps, inspect, cp, logs, login
 # ports (-p) <external-port-on-host>:<internal-port-in-container> (mapping of ports)
 # volumes (-v) <volume-on-host>:<volume-in-container> (mounts volume-on-host to container)
-# docker-compose up -d for making containers detached (other commands: docker-compose run, stop, down (--volumes)
+# docker-compose up -d for making containers detached (other commands: docker-compose run, stop, down (--volumes), config, ps, build, push)
 # Other options (in .yml): links (link to <name-other-container>:<variable-name-in-other-container> or if equal only on tag) (--link)
+
+# variables are set in default.env
+
 services:
         php:
-                build: ./docker-php
-                # image: php:7.4-fpm
+                container_name: "php-server-${NAME}-php"
+                build: 
+                  context: ./docker-php
+                # Just for pushing the image
+                image: "${ACCOUNTNAME}/php-server-${NAME}:php"
                 volumes:
                   - ./php-files:/var/www/include
                 networks:
@@ -18,8 +24,10 @@ services:
                   - mysql:database
 
         mysql:
-                # build: ./docker-mysql
-                image: mysql
+                container_name: "php-server-${NAME}-mysql"
+                build: 
+                  context: ./docker-mysql
+                image: "${ACCOUNTNAME}/php-server-${NAME}:mysql"
                 # No need for direct access (use phpmyadmin or php), therfor commented out:
                 # ports:
                 #  - "5000:3306"
@@ -32,10 +40,13 @@ services:
                   - code-network
 
         nginx:
-                build: ./docker-nginx
+                container_name: "php-server-${NAME}-nginx"
+                build: 
+                  context: ./docker-nginx
+                image: "${ACCOUNTNAME}/php-server-${NAME}:nginx"
                 ports: 
-                  - "8080:80"
-                  - "8081:443"
+                  - "${PORT_NGINX_80}:80"
+                  - "${PORT_NGINX_443}:443"
                 links:
                   - php
                 volumes: 
@@ -48,9 +59,12 @@ services:
                   - code-network
 
         phpmyadmin:
-                image: phpmyadmin
+                container_name: "php-server-${NAME}-phpmyadmin"
+                build:
+                  context: ./docker-phpmyadmin
+                image: "${ACCOUNTNAME}/php-server-${NAME}:phpmyadmin"
                 ports:
-                  - "8082:80"
+                  - "${PORT_PHPMYADMIN}:80"
                 environment:
                   - PMA_HOST=mysql
                   - PMA_PORT=3306 

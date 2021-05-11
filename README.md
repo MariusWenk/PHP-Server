@@ -5,6 +5,7 @@ To setup this application clone repository and:
 - cd into the folder PHP-Server.
 - Install docker and docker-compose
 - If desired change files first (further documentation below)
+- Change Variables (if necessary in .env)
 - Copy Program-Code into php-files and make an index.php in php-files/php, where the port 8080 of the host would be pointing to
 - run: docker-compose up -d
 
