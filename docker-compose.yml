@@ -1,7 +1,7 @@
 version: "3"
 
 # titles are names of the containers after initialisation (check with docker ps [-a] whether they are running)
-# docker comands: start, stop, run, build, pull, push, rm, rmi, images, ps, inspect, cp, logs
+# docker comands: start, stop, run, build, pull, push, tag, rm, rmi, images, ps, inspect, cp, logs, login
 # ports (-p) <external-port-on-host>:<internal-port-in-container> (mapping of ports)
 # volumes (-v) <volume-on-host>:<volume-in-container> (mounts volume-on-host to container)
 # docker-compose up -d for making containers detached (other commands: docker-compose run, stop, down (--volumes)
