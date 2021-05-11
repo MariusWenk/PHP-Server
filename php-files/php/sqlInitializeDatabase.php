@@ -1,17 +1,23 @@
 <?php
-require_once 'config.inc.php';
+require_once 'functions_db.inc.php';
+require_once 'config_db.inc.php';
 
-db_query( "DROP TABLE rooms");
-db_query( "DROP TABLE players");
-db_query( "DROP TABLE roles");
-db_query( "DROP TABLE doors");
-db_query( "DROP TABLE game");
+$pdo = db_connect(false, false);
 
-db_query( "CREATE TABLE rooms (RoomID int NOT NULL, Language varchar(255), Initialisiert boolean, PRIMARY KEY (RoomID));");
-db_query( "CREATE TABLE players (RoomID int NOT NULL, PlayerID int NOT NULL, Name varchar(255) NOT NULL, Status varchar(255), Role varchar(255), SpielerMenu boolean, LinkMenu boolean, AmZug boolean, CardsSelected boolean, Leer int, Gold int, Feuerfalle int, UpdateNecessary boolean, CONSTRAINT FinalID PRIMARY KEY (RoomID, PlayerID));");
-db_query( "CREATE TABLE roles (Spielerzahl int NOT NULL, Abenteurer int, Waechterinnen int, PRIMARY KEY (Spielerzahl));");
-db_query( "CREATE TABLE doors (Spielerzahl int NOT NULL, Leer int, Gold int, Feuerfallen int, PRIMARY KEY (Spielerzahl));");
-db_query( "CREATE TABLE game (RoomID int NOT NULL, LeerGen int, GoldGen int, FeuerfallenGen int, LeerDisc int, GoldDisc int, FeuerfallenDisc int, CardsPlayed int, SpielerZahl int, Runde int, GameMenu int, KarteSelected varchar(255), KarteSelectedPosition int, Winner varchar(255), GameText varchar(255), ChooseCardStatus int, PRIMARY KEY (RoomID));");
+try{
+    db_query_pdo("DROP DATABASE tempeldesschreckens", $pdo);
+} catch(PDOException $e){
+    echo "PDOException: ".$e -> getMessage();
+}
+db_query_pdo("CREATE DATABASE tempeldesschreckens", $pdo);
+
+$pdo = null;
+
+db_query("CREATE TABLE rooms (RoomID int NOT NULL, Language varchar(255), Initialisiert boolean, PRIMARY KEY (RoomID));");
+db_query("CREATE TABLE players (RoomID int NOT NULL, PlayerID int NOT NULL, Name varchar(255) NOT NULL, Status varchar(255), Role varchar(255), SpielerMenu boolean, LinkMenu boolean, AmZug boolean, CardsSelected boolean, Leer int, Gold int, Feuerfalle int, UpdateNecessary boolean, CONSTRAINT FinalID PRIMARY KEY (RoomID, PlayerID));");
+db_query("CREATE TABLE roles (Spielerzahl int NOT NULL, Abenteurer int, Waechterinnen int, PRIMARY KEY (Spielerzahl));");
+db_query("CREATE TABLE doors (Spielerzahl int NOT NULL, Leer int, Gold int, Feuerfallen int, PRIMARY KEY (Spielerzahl));");
+db_query("CREATE TABLE game (RoomID int NOT NULL, LeerGen int, GoldGen int, FeuerfallenGen int, LeerDisc int, GoldDisc int, FeuerfallenDisc int, CardsPlayed int, SpielerZahl int, Runde int, GameMenu int, KarteSelected varchar(255), KarteSelectedPosition int, Winner varchar(255), GameText varchar(255), ChooseCardStatus int, PRIMARY KEY (RoomID));");
 
 db_query("INSERT INTO rooms VALUES (0, 'deutsch', false)");
 

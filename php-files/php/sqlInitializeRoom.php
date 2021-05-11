@@ -1,7 +1,7 @@
 <?php
 require_once 'config.inc.php';
 
-$newID = db_fetch(db_query("SELECT RoomID FROM rooms ORDER BY RoomID DESC LIMIT 1")) + 1;
+$newID = db_fetch(db_query("SELECT RoomID FROM rooms ORDER BY RoomID DESC LIMIT 1"))['RoomID'] + 1;
 
 $values = $_POST;
 $name = $values['nickname'];

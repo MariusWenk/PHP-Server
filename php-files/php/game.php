@@ -6,7 +6,6 @@
         -Geeigneten Server erstellen
         -beliebige Bildschitmformate
         -Sprachen
-        -Git, Docker
         -Spieler verlässt Spiel
         -generischere Knopfbefehle
         -Anleitung
@@ -21,6 +20,7 @@
         -Gewinner letzte Karte gezogen
         -beliebig viele parallele Räume
         -Gamephase 3 Ok Button verallgemeinern
+        -PDO db_query_prepare() statt db_query() und [Wert] statt [0] für db_fetch()
     -->
 
 

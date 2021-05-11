@@ -5,8 +5,8 @@ $roomID = $_GET['roomID'];
 $playerID = $_GET['playerID'];
 $select = $_GET['select'];
 
-$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1")) + 1;
-$chooseCardStatus = db_fetch(db_query("SELECT ChooseCardStatus FROM game WHERE RoomID=$roomID"));
+$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
+$chooseCardStatus = db_fetch(db_query("SELECT ChooseCardStatus FROM game WHERE RoomID=$roomID"))[0];
 
 if($chooseCardStatus == 0){
     db_query("UPDATE game SET ChooseCardStatus=1 WHERE RoomID=$roomID");

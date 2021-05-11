@@ -4,13 +4,13 @@ require_once 'config.inc.php';
 $roomID = $_GET['roomID'];
 $playerID = $_GET['playerID'];
 
-$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1")) + 1;
+$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
 
-$runde = db_fetch(db_query("SELECT Runde FROM game WHERE RoomID=$roomID"));
+$runde = db_fetch(db_query("SELECT Runde FROM game WHERE RoomID=$roomID"))[0];
 
-$leer = db_fetch(db_query("SELECT LeerGen FROM game WHERE RoomID=$roomID")) - db_fetch(db_query("SELECT LeerDisc FROM game WHERE RoomID=$roomID"));
-$gold = db_fetch(db_query("SELECT GoldGen FROM game WHERE RoomID=$roomID")) - db_fetch(db_query("SELECT GoldDisc FROM game WHERE RoomID=$roomID"));
-$feuerfalle = db_fetch(db_query("SELECT FeuerfallenGen FROM game WHERE RoomID=$roomID")) - db_fetch(db_query("SELECT FeuerfallenDisc FROM game WHERE RoomID=$roomID"));
+$leer = db_fetch(db_query("SELECT LeerGen FROM game WHERE RoomID=$roomID"))[0] - db_fetch(db_query("SELECT LeerDisc FROM game WHERE RoomID=$roomID"))[0];
+$gold = db_fetch(db_query("SELECT GoldGen FROM game WHERE RoomID=$roomID"))[0] - db_fetch(db_query("SELECT GoldDisc FROM game WHERE RoomID=$roomID"))[0];
+$feuerfalle = db_fetch(db_query("SELECT FeuerfallenGen FROM game WHERE RoomID=$roomID"))[0] - db_fetch(db_query("SELECT FeuerfallenDisc FROM game WHERE RoomID=$roomID"))[0];
 
 $ges = (5-$runde) * $spielerAnzahl;
 $i=0;

@@ -6,7 +6,7 @@
         $roomID = $_GET['roomID'];
         $textID = $_GET['textID'];
 
-        $initialisiert = db_fetch(db_query("SELECT Initialisiert FROM rooms WHERE RoomID=$roomID"));
+        $initialisiert = db_fetch(db_query("SELECT Initialisiert FROM rooms WHERE RoomID=$roomID"))[0];
     ?>
 
   <html lang="de">

@@ -5,12 +5,12 @@ $roomID = $_GET['roomID'];
 $playerID = $_GET['playerID'];
 $newName = $_GET['newName'];
 
-$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1")) + 1;
+$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
 
 $nameVergeben = false;
 $i=0;
 while($i < $spielerAnzahl){
-    $nameOthers = db_fetch(db_query("SELECT Name FROM players WHERE RoomID=$roomID AND PlayerID=$i");
+    $nameOthers = db_fetch(db_query("SELECT Name FROM players WHERE RoomID=$roomID AND PlayerID=$i"))[0];
     if($nameOthers == $newName){
         $nameVergeben = true;
     }
@@ -20,7 +20,7 @@ while($i < $spielerAnzahl){
 if(!$nameVergeben){
     db_query("UPDATE players SET Name='$newName' WHERE PlayerID=$playerID AND RoomID='$roomID'");
 
-    $spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1")) + 1;
+    $spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
     $i=0;
     while($i<$spielerAnzahl){
         if($i != $playerID){

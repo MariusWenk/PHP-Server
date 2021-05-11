@@ -3,7 +3,7 @@ require_once 'config.inc.php';
 
 $playerID = $_GET['playerID'];
 $roomID = $_GET['roomID'];
-$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1")) + 1;
+$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
 
 if($spielerAnzahl > 1){
     db_query( "UPDATE players SET Status='' WHERE PlayerID=$playerID AND RoomID=$roomID");

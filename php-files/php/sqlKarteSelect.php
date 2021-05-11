@@ -5,26 +5,26 @@ $roomID = $_GET['roomID'];
 $playerID = $_GET['playerID'];
 $select = $_GET['select'];
 
-$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1")) + 1;
-$chooseCardStatus = db_fetch(db_query("SELECT ChooseCardStatus FROM game WHERE RoomID=$roomID"));
+$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
+$chooseCardStatus = db_fetch(db_query("SELECT ChooseCardStatus FROM game WHERE RoomID=$roomID"))[0];
 
 if($chooseCardStatus == 1){
-    db_query("UPDATE game SET ChooseCardStatus=0 WHERE RoomID=$roomID");
+    db_query("UPDATE game SET ChooseCardStatus=0 WHERE RoomID=$roomID")[0];
 
     $player = 0;
     $i=0;
     while($i < $spielerAnzahl){
         db_query("UPDATE players SET AmZug=false WHERE PlayerID=$i AND RoomID='$roomID'");
-        $playerSelected = db_fetch(db_query("SELECT CardsSelected FROM players WHERE RoomID=$roomID AND PlayerID=$i"));
+        $playerSelected = db_fetch(db_query("SELECT CardsSelected FROM players WHERE RoomID=$roomID AND PlayerID=$i"))[0];
         if($playerSelected){
             $player = $i;
         }
         $i++;
     }
 
-    $empty = db_fetch(db_query("SELECT Leer FROM players WHERE RoomID=$roomID AND PlayerID=$player"));
-    $treasure = db_fetch(db_query("SELECT Gold FROM players WHERE RoomID=$roomID AND PlayerID=$player"));
-    $trap = db_fetch(db_query("SELECT Feuerfalle FROM players WHERE RoomID=$roomID AND PlayerID=$player"));
+    $empty = db_fetch(db_query("SELECT Leer FROM players WHERE RoomID=$roomID AND PlayerID=$player"))[0];
+    $treasure = db_fetch(db_query("SELECT Gold FROM players WHERE RoomID=$roomID AND PlayerID=$player"))[0];
+    $trap = db_fetch(db_query("SELECT Feuerfalle FROM players WHERE RoomID=$roomID AND PlayerID=$player"))[0];
     $kartenGesamt = $empty + $treasure + $trap;
 
     $r = rand(1,$kartenGesamt);
@@ -50,8 +50,8 @@ if($chooseCardStatus == 1){
     db_query("UPDATE game SET KarteSelected='$karteSelected' WHERE RoomID=$roomID");
     db_query("UPDATE game SET KarteSelectedPosition=$select WHERE RoomID=$roomID");
 
-    $cardsPlayed = db_fetch(db_query("SELECT CardsPlayed FROM game WHERE RoomID=$roomID"));
-    $runde = db_fetch(db_query("SELECT Runde FROM game WHERE RoomID=$roomID"));
+    $cardsPlayed = db_fetch(db_query("SELECT CardsPlayed FROM game WHERE RoomID=$roomID"))[0];
+    $runde = db_fetch(db_query("SELECT Runde FROM game WHERE RoomID=$roomID"))[0];
 
     if($cardsPlayed == $spielerAnzahl && $runde != 4){
         $rundeText = $runde+1;

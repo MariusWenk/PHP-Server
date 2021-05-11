@@ -4,14 +4,14 @@ require_once 'config.inc.php';
 $roomID = $_GET['roomID'];
 $playerID = $_GET['playerID'];
 
-$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1")) + 1;
+$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
 
-$emptyGen = db_fetch(db_query("SELECT Leer FROM doors WHERE Spielerzahl=$spielerAnzahl "));
-$treasureGen = db_fetch(db_query("SELECT Gold FROM doors WHERE Spielerzahl=$spielerAnzahl"));
-$trapGen = db_fetch(db_query("SELECT Feuerfallen FROM doors WHERE Spielerzahl=$spielerAnzahl"));
+$emptyGen = db_fetch(db_query("SELECT Leer FROM doors WHERE Spielerzahl=$spielerAnzahl "))[0];
+$treasureGen = db_fetch(db_query("SELECT Gold FROM doors WHERE Spielerzahl=$spielerAnzahl"))[0];
+$trapGen = db_fetch(db_query("SELECT Feuerfallen FROM doors WHERE Spielerzahl=$spielerAnzahl"))[0];
 
-$abenteurer = db_fetch(db_query("SELECT Abenteurer FROM roles WHERE Spielerzahl=$spielerAnzahl"));
-$waechterinnen = db_fetch(db_query("SELECT Waechterinnen FROM roles WHERE Spielerzahl=$spielerAnzahl"));
+$abenteurer = db_fetch(db_query("SELECT Abenteurer FROM roles WHERE Spielerzahl=$spielerAnzahl"))[0];
+$waechterinnen = db_fetch(db_query("SELECT Waechterinnen FROM roles WHERE Spielerzahl=$spielerAnzahl"))[0];
 
 $ges = $abenteurer + $waechterinnen;
 $i = 0;

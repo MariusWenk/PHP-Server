@@ -1,5 +1,4 @@
 <?php
-require_once 'config.inc.php';
 
 function db_connect($root, $db){
     if($root){
@@ -29,13 +28,18 @@ function db_connect($root, $db){
     return $conn;
 }
 
-function db_query($query,$pdo=false){
-    
-    if(!$pdo){
-        $pdo = db_connect(false,true);
-    }
-    
-    $stmt = $pdo->query($query);
+function db_query_pdo($query, $pdo){
+    // try{
+        $stmt = $pdo->query($query);
+    // } catch(PDOException $e){
+    //     echo "PDOException: ".$e -> getMessage();
+    // }
+    return $stmt;
+}
+
+function db_query($query){
+    $pdo = db_connect(false,true);
+    $stmt = db_query_pdo($query, $pdo);
     $pdo = null;
     return $stmt;
 }

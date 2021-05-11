@@ -13,7 +13,7 @@ if(!$heroku){
     define('DB_PASSWORD','tdsW!nichtsosicher');
     define('DB_PORT','3306');
 
-    define('DB_NAME','tempelDesSchreckens');
+    define('DB_NAME','tempeldesschreckens');
 } else{
     $db = parse_url(getenv("DATABASE_URL"));
 

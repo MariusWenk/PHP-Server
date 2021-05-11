@@ -5,12 +5,12 @@ $values = $_POST;
 $name = $values['nickname'];
 $roomID = $values['roomID'];
 
-$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1")) + 1;
+$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
 
 $nameVergeben = false;
 $i=0;
 while($i < $spielerAnzahl){
-    $nameOthers = db_fetch(db_query("SELECT Name FROM players WHERE RoomID=$roomID AND PlayerID=$i"));
+    $nameOthers = db_fetch(db_query("SELECT Name FROM players WHERE RoomID=$roomID AND PlayerID=$i"))[0];
     if($nameOthers == $name){
         $nameVergeben = true;
     }
@@ -26,11 +26,11 @@ if(!$nameVergeben){
         }
     }
 
-    $playerID = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1")) + 1;
+    $playerID = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
 
     db_query("INSERT INTO players VALUES ($roomID, $playerID, '$name', '', 'NR',false,true,false,false,0,0,0,false)");
 
-    $spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1")) + 1;
+    $spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
     $i=0;
     while($i<$spielerAnzahl){
         if($i != $playerID){
