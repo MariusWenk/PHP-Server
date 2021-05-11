@@ -8,7 +8,7 @@ setup:
        as: database
 build:
    docker:
-       php: heroku-php/Dockerfile
+       php: -f heroku-php/Dockerfile
 run:
    php:
        command:
