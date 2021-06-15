@@ -5,12 +5,12 @@ $values = $_POST;
 $name = $values['nickname'];
 $roomID = $values['roomID'];
 
-$spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
+$spielerAnzahl = db_fetch(db_query_prepared("SELECT PlayerID FROM players WHERE RoomID=:roomID ORDER BY PlayerID DESC LIMIT 1", array($roomID)))['PlayerID'] + 1;
 
 $nameVergeben = false;
 $i=0;
 while($i < $spielerAnzahl){
-    $nameOthers = db_fetch(db_query("SELECT Name FROM players WHERE RoomID=$roomID AND PlayerID=$i"))[0];
+    $nameOthers = db_fetch(db_query_prepared("SELECT Name FROM players WHERE RoomID=:roomID AND PlayerID=:i", array($roomID, $i)))['players'];
     if($nameOthers == $name){
         $nameVergeben = true;
     }
@@ -26,15 +26,15 @@ if(!$nameVergeben){
         }
     }
 
-    $playerID = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
+    $playerID = db_fetch(db_query_prepared("SELECT PlayerID FROM players WHERE RoomID=:roomID ORDER BY PlayerID DESC LIMIT 1", array($roomID)))['PlayerID'] + 1;
 
-    db_query("INSERT INTO players VALUES ($roomID, $playerID, '$name', '', 'NR',false,true,false,false,0,0,0,false)");
+    db_query_prepared("INSERT INTO players VALUES (:roomID, :playerID, :name, '', 'NR',false,true,false,false,0,0,0,false)", array($roomID, $playerID, $name));
 
-    $spielerAnzahl = db_fetch(db_query("SELECT PlayerID FROM players WHERE RoomID=$roomID ORDER BY PlayerID DESC LIMIT 1"))[0] + 1;
+    $spielerAnzahl = db_fetch(db_query_prepared("SELECT PlayerID FROM players WHERE RoomID=:roomID ORDER BY PlayerID DESC LIMIT 1", array($roomID)))['PlayerID'] + 1;
     $i=0;
     while($i<$spielerAnzahl){
         if($i != $playerID){
-            db_query( "UPDATE players SET UpdateNecessary=true WHERE RoomID=$roomID AND PlayerID=$playerID");
+            db_query_prepared( "UPDATE players SET UpdateNecessary=true WHERE RoomID=:roomID AND PlayerID=:playerID", array($roomID, $playerID));
         }
         $i++;
     }
