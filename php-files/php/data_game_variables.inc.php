@@ -4,9 +4,9 @@
         $roomID = $_GET['roomID'];
         $playerID = $_GET['playerID'];
 
-        $initialisiert = db_fetch(db_query_prepared("SELECT Initialisiert FROM rooms WHERE RoomID=?",[$roomID]))[0];
+        $initialisiert = db_fetch(db_query_prepared("SELECT Initialisiert FROM rooms WHERE RoomID=?",[$roomID]))['Initialisiert'];
 
-        $spielerAnzahl = db_fetch(db_query_prepared("SELECT PlayerID FROM players WHERE RoomID=? ORDER BY PlayerID DESC LIMIT 1",[$roomID]))[0] + 1;
+        $spielerAnzahl = db_fetch(db_query_prepared("SELECT PlayerID FROM players WHERE RoomID=? ORDER BY PlayerID DESC LIMIT 1",[$roomID]))['PlayerID'] + 1;
         
         $i=0;
         $name = new SplFixedArray($spielerAnzahl);

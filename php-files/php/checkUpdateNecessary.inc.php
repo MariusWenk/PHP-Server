@@ -6,7 +6,7 @@
         $roomID = $_GET['roomID'];
         $playerID = $_GET['playerID'];
 
-        $updateNecessary = db_fetch(db_query_prepared("SELECT UpdateNecessary FROM players WHERE RoomID=:roomID AND PlayerID=:playerID", array($roomID, $playerID)))['UpdateNecessary'];
+        $updateNecessary = db_fetch(db_query_prepared("SELECT UpdateNecessary FROM players WHERE RoomID=? AND PlayerID=?", array($roomID, $playerID)))['UpdateNecessary'];
     ?>
     
     <html lang="de">

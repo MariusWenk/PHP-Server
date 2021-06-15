@@ -18,7 +18,7 @@
     <body>
       <section class="zentriert">
             <h3 class="hide"> Willkommen zu Tempel des Schreckens <br/></h3>
-            <form action = "sqlInitializeRoom.php" method = "post">
+            <form action = "sqlInitializeRoom.inc.php" method = "post">
                 <p>Nickname:</p>
                 <p><input name ="nickname"/></p>
                 <label><input type="checkbox" class="language" name="deutsch" checked="true"/> Deutsch</label>

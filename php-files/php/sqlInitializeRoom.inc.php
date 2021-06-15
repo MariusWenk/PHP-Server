@@ -16,6 +16,6 @@ foreach($values as $key => $value){
 db_query("INSERT INTO rooms VALUES ($newID, '$language',false)");
 db_query("INSERT INTO players VALUES ($newID, 0, '$name', 'Host', 'NR',false,true,true,true,0,0,0,false)");
 
-header("Location: game.php?roomID=".$newID."&playerID=0");
+header("Location: game.inc.php?roomID=".$newID."&playerID=0");
 
 ?>

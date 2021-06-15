@@ -24,7 +24,7 @@
         <section class="zentriert" id="field"></section>
       
         <script>
-            var loadJoinroom = "joinroomLoad.php?textID=".concat("<?php echo $textID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+            var loadJoinroom = "joinroomLoad.inc.php?textID=".concat("<?php echo $textID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
             $("#field").load(loadJoinroom);
         </script>
 

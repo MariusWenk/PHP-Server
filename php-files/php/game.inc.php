@@ -20,7 +20,6 @@
         -Gewinner letzte Karte gezogen
         -beliebig viele parallele Räume
         -Gamephase 3 Ok Button verallgemeinern
-        -PDO db_query_prepare() statt db_query() und [Wert] statt [0] für db_fetch()
     -->
 
 
@@ -106,7 +105,7 @@
             <p id="updateNecessary" hidden>0</p>
         
             <script>
-                var loadMain = "gameLoadMain.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+                var loadMain = "gameLoadMain.inc.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
                 $("#game").load(loadMain);
                 $(document).ready(function(){
                     if("<?php echo $spielerMenu;?>" == "0"){
@@ -122,16 +121,16 @@
                         {
                             $("#linkfeld").hide();
                             $("#spielerfeld").hide();
-                            xmlRequestMenus("sqlUpdateWindows.php","0","0");
+                            xmlRequestMenus("sqlUpdateWindows.inc.php","0","0");
                         }
                     });
                     $("#link").click(function(){
                         $("#linkfeld").show();
-                        xmlRequestMenus("sqlUpdateWindows.php","<?php echo $spielerMenu;?>","1");
+                        xmlRequestMenus("sqlUpdateWindows.inc.php","<?php echo $spielerMenu;?>","1");
                     });
                     $("#spieleranzeige").click(function(){
                         $("#spielerfeld").show();
-                        xmlRequestMenus("sqlUpdateWindows.php","1","<?php echo $linkMenu;?>");
+                        xmlRequestMenus("sqlUpdateWindows.inc.php","1","<?php echo $linkMenu;?>");
                     });
                     $("#linkbutton").click(function(){
                         copyToClipboard("#linkstring");
@@ -140,10 +139,10 @@
                         var newName = document.getElementById("newName").value;
                         $.ajax({
                             type: "GET",
-                            url: "sqlChangeName.php" ,
+                            url: "sqlChangeName.inc.php" ,
                             data: {playerID: "<?php echo $playerID;?>", roomID: "<?php echo $roomID;?>", newName: newName },
                             success : function() { 
-                                var loadGame = "gameLoad.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+                                var loadGame = "gameLoad.inc.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
                                 $("#spielertext").load(loadGame.concat(" #spielertext"));
                                 $("#linktext").load(loadGame.concat(" #linktext"));
                                 $("#spielernamenlinkfeld").load(loadGame.concat(" #spielernamenlinkfeld"));
@@ -157,7 +156,7 @@
                         });
                     });
                     $("#spielerbutton2").click(function(){
-                        xmlRequest("sqlUpdateHost.php");
+                        xmlRequest("sqlUpdateHost.inc.php");
                     });
                     $("#newName").click(function(){
                         selectText("newName");
@@ -169,7 +168,7 @@
                             url: file ,
                             data: {playerID: "<?php echo $playerID;?>", roomID: "<?php echo $roomID;?>", spielerMenu: spM, linkMenu: liM },
                             success : function() { 
-                                var loadGame = "gameLoad.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+                                var loadGame = "gameLoad.inc.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
                                 $("#spielertext").load(loadGame.concat(" #spielertext"));
                                 $("#linktext").load(loadGame.concat(" #linktext"));
                                 $("#spielernamenlinkfeld").load(loadGame.concat(" #spielernamenlinkfeld"));
@@ -197,7 +196,7 @@
                     //     $("#link").append("Test");
                     // }
                     // if($("#updateNecessary").text() == "1"){
-                    //     //xmlRequest("sqlSetUpdateNotNecessary.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>"));
+                    //     //xmlRequest("sqlSetUpdateNotNecessary.inc.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>"));
                     //     $("#link").append("Hi");
                     // }
                     function xmlRequest(file){
@@ -206,7 +205,7 @@
                             url: file ,
                             data: {playerID: "<?php echo $playerID;?>", roomID: "<?php echo $roomID;?>"},
                             success : function() { 
-                                var loadGame = "gameLoad.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+                                var loadGame = "gameLoad.inc.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
                                 $("#spielertext").load(loadGame.concat(" #spielertext"));
                                 $("#linktext").load(loadGame.concat(" #linktext"));
                                 $("#spielernamenlinkfeld").load(loadGame.concat(" #spielernamenlinkfeld"));
@@ -221,10 +220,10 @@
                     }
                 });
                 setInterval(function(){
-                    // var loadUpdateNecessary = "checkUpdateNecessary.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+                    // var loadUpdateNecessary = "checkUpdateNecessary.inc.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
                     // $("#updateNecessary").load(loadUpdateNecessary.concat(" #updateNecessary"));
 
-                    var loadGame = "gameLoad.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+                    var loadGame = "gameLoad.inc.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
                     $("#spielertext").load(loadGame.concat(" #spielertext"));
                     $("#linktext").load(loadGame.concat(" #linktext"));
                     $("#spielernamenlinkfeld").load(loadGame.concat(" #spielernamenlinkfeld"));
@@ -235,7 +234,7 @@
                     $("#statistikZahlen").load(loadGame.concat(" #statistikZahlen"));
                     $("#eigeneKartenZahlen").load(loadGame.concat(" #eigeneKartenZahlen"));
 
-                    var loadMain = "gameLoadMain.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+                    var loadMain = "gameLoadMain.inc.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
                     $("#game").load(loadMain);
                 }, 5000);
                 setInterval(function(){

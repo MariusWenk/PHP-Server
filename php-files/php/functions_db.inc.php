@@ -54,6 +54,14 @@ function db_prepare_stmt($query){
 
 function db_query_prepared($query, $values){
     $stmt = db_prepare_stmt($query);
+    
+//    if(!(strpos($query, '?') > 0)){
+//        foreach($values as $val){
+//            $key = get_var_name($val);
+//            $values_new_keys[$key] = $val;
+//        }
+//        $values = $values_new_keys;
+//    }
 
     $stmt->execute($values);
     return $stmt;

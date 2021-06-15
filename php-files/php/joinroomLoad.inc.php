@@ -6,7 +6,7 @@
         $roomID = $_GET['roomID'];
         $textID = $_GET['textID'];
 
-        $initialisiert = db_fetch(db_query_prepared("SELECT Initialisiert FROM rooms WHERE RoomID=:roomID", array($roomID)))['Initialisiert'];
+        $initialisiert = db_fetch(db_query_prepared("SELECT Initialisiert FROM rooms WHERE RoomID=?", array($roomID)))['Initialisiert'];
     ?>
 
   <html lang="de">
@@ -27,7 +27,7 @@
 
         if(!$initialisiert){
             echo "<h3 class=\"hide\"> Willkommen zu Tempel des Schreckens <br/></h3>";
-            echo "<form action = \"sqlEnterRoom.php\" method = \"post\">";
+            echo "<form action = \"sqlEnterRoom.inc.php\" method = \"post\">";
                 echo "<p>Nickname:</p>";
                 echo "<p><input name =\"nickname\"/></p>";
                 echo "<label><input type=\"checkbox\" class=\"language\" name=\"deutsch\" checked=\"true\"/> Deutsch</label>";
@@ -44,7 +44,7 @@
             }
         }else{
             echo "<h3 class=\"hide\"> Willkommen zu Tempel des Schreckens <br/></h3>";
-            echo "<form action = \"sqlEnterRoomInitialisiert.php\" method = \"post\">";
+            echo "<form action = \"sqlEnterRoomInitialisiert.inc.php\" method = \"post\">";
                 echo "<p class=\"jointext\"> In Raum ".$roomID." hat das Spiel bereits gestartet. Falls du herausgeflogen bist, gib bitte exakt den Namen ein, mit dem du angemeldet warst.</p>";
                 echo "<p><input name =\"nickname\"/></p>";
                 echo "<input name=\"roomID\" value=".$roomID." hidden />";
